@@ -1,8 +1,6 @@
 <template>
-  <div class="star">
-    <div class="star-item" :class="starType">
-      <span v-for="itemClass in itemClasses" :class="itemClass" class="star-item" ></span>
-    </div>
+  <div class="star" :class="starType">
+    <span v-for="itemClass in itemClasses" :class="itemClass" class="star-item"></span>
   </div>
 </template>
 
@@ -42,6 +40,7 @@
       }
     }
   };
+
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
   @import "star.styl";

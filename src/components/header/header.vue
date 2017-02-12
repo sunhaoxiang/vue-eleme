@@ -30,7 +30,7 @@
       <img :src="seller.avatar" alt="" class="" width="100%" height="100%">
     </div>
     <transition name="fade">
-    <div v-show="detailShow" class="detail" @click="hideDetail" transition="fade">
+    <div v-show="detailShow" class="detail" @click="hideDetail">
       <div class="detail-wrapper clearFix">
         <div class="detail-main">
           <h1 class="name">{{seller.name}}</h1>
