@@ -1,51 +1,88 @@
-<template>
-  <div class="cartControl">
-    <transition name="fade">
-        <div class="cart-decrease" v-show="food.count>0" @click.stop.prevent="decreaseCart($event)">
-          <transition name="inner">
-          <span class="inner iconfont icon-jian"></span>
-          </transition>
-        </div>
+<template lang="html">
+
+  <div class="cartcontrol">
+    <transition name="fadeRotate">
+      <div class="cart-decrease" v-show="food.count>0" @click.stop.prevent="decreaseCart()">
+          <span class="icon-remove_circle_outline inner"></span>
+      </div>
     </transition>
-     <span class="cart-count" v-show="food.count > 0 ">
+    <div class="cart-count" v-show="food.count>0">
       {{food.count}}
-    </span>
-    <span class="iconfont icon-jia cart-add" @click.stop.prevent="addCart($event)"></span>
+    </div>
+    <div class="cart-add" @click.stop.prevent="addCart($event)">
+      <i class="icon-add_circle"></i>
+    </div>
   </div>
+
 </template>
 
-<script type="text/ecmascript-6">
-  import Vue from 'vue';
-  export default {
-    props: {
-      food: {
-        type: Object
+<script>
+import Vue from 'vue'
+
+export default {
+  props: {
+    food: Object
+  },
+  methods: {
+    addCart(event) {
+      this.count++;
+      if (!event._constructed) {
+        return
       }
+      if (!this.food.count) {
+        Vue.set(this.food, 'count', 0)
+      }
+      this.food.count++;
+      // 存储当前点击的元素，在购物车中会用到
+      this.$store.addCartEl = event.target
+      this.$root.eventHub.$emit('cart.add', event.target)
     },
-    methods: {
-      addCart(event) {
-        if (!event._constructed) {
-          // 去掉自带click事件的点击
-          return;
-        }
-        if (!this.food.count) {
-          Vue.set(this.food, 'count', 1);
-        } else {
-          this.food.count++;
-        }
-//        event.srcElement.outerHTML
-        this.$emit('increment', event.target); // 子组件通过 $emit触发父组件的方法 increment   还
-      },
-      decreaseCart(event) {
-        if (!event._constructed) {
-          // 去掉自带click事件的点击
-          return;
-        }
-        this.food.count--;
+    decreaseCart() {
+      if (!event._constructed || !this.food.count) {
+        return
       }
+      this.food.count--;
     }
-  };
+  }
+}
+
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
-  @import "cartControl.styl";
+
+<style lang="stylus">
+
+.cartcontrol
+  .cart-decrease
+    display inline-block
+    padding 6px
+    transition: all .4s linear
+    .inner
+      line-height 24px
+      font-size 24px
+      color rgb(0,160,220)
+      transition all 0.4s linear
+    &.fadeRotate-enter-active, &.fadeRotate-leave-active
+      transform translate3d(0,0,0)
+      .inner
+        display inline-block
+        transform rotate(0)
+    &.fadeRotate-enter, &.fadeRotate-leave-active
+      opacity: 0
+      transform translate3d(24px,0,0)
+      .inner
+        transform rotate(180deg)
+  .cart-count
+    display inline-block
+    vertical-align top
+    font-size 10px
+    color rgb(147,153,159)
+    line-height 24px
+    text-align center
+    padding 6px 0
+  .cart-add
+    display inline-block
+    vertical-align top
+    font-size 24px
+    color rgb(0,160,220)
+    line-height 24px
+    padding 6px
 </style>

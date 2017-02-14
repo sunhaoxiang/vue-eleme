@@ -1,26 +1,53 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import VueResource from 'vue-resource';
-import App from './App';
-import goods from './components/goods/goods.vue';
-import ratings from './components/ratings/ratings.vue';
-import seller from './components/seller/seller.vue';
-import 'common/stylus/index.styl';
-// 安装 "VueRouter"这个插件
-/* eslint-disable no-new */
-Vue.use(VueRouter);
-Vue.use(VueResource);
-let routes = [
-  {path: '/', name: 'index', component: App, children: [{path: '/goods', component: goods}, {path: '/ratings', component: ratings}, {path: '/seller', component: seller}]}
-];
-let router = new VueRouter({
-  'linkActiveClass': 'active',
-   routes // （缩写）相当于 routes: routes
-});
-let app = new Vue({
-  router
-}).$mount('#app');
-  router.push('/goods');
-export default app;
+import Vue from 'vue'
+import App from './App'
+import VueRouter from 'vue-router'
+import goods from 'components/goods/goods'
+import ratings from 'components/ratings/ratings'
+import seller from 'components/seller/seller'
+import vueTap from 'v-tap'
+import fastclick from 'fastclick'
+import Vuex from 'vuex'
+
+Vue.use(vueTap)
+Vue.use(VueRouter)
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+  state: {
+    count: 0
+  },
+  // 添加的商品元素
+  addCartEl: {},
+  mutations: {
+    increment(state) {
+      state.count++
+    }
+  }
+})
+const router = new VueRouter({
+  routes: [{
+    path: '/goods',
+    component: goods
+  }, {
+    path: '/ratings',
+    component: ratings
+  }, {
+    path: '/seller',
+    component: seller
+  }],
+  linkActiveClass: 'active'
+})
+
+new Vue({
+  router,
+  store,
+  template: '<App>',
+  components: {
+    App
+  },
+  data: {
+    eventHub: new Vue()
+  }
+}).$mount('#app')
+
+router.push('goods')
