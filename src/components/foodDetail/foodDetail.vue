@@ -9,7 +9,7 @@
         <div class="info">
           <div class="title">{{food.name}}</div>
           <div class="desc">
-            <span>月售{{food.sellCount}}</span>
+            <span>月售{{food.sellCount}}份</span>
             <span>好评率{{food.rating}}%</span>
           </div>
           <div class="price">
@@ -18,7 +18,7 @@
           </div>
           <div class="shopCart">
             <transition name="fade">
-              <div class="text" @click="addCart($event)" v-show="!food.count">加入购物车</div>
+              <div class="text" @click.stop.prevent="addCart($event)" v-show="!food.count">加入购物车</div>
             </transition>
           </div>
           <cartcontrol :food="food"></cartcontrol>
@@ -114,7 +114,7 @@
     },
     methods: {
       show() {
-        this.showDetail = true;
+        this.showDetail = true
         if (this.showDetail) {
           this.$nextTick(() => {
             this._initScroll()
@@ -122,7 +122,7 @@
         }
       },
       hide() {
-        this.showDetail = false;
+        this.showDetail = false
       },
       _initScroll() {
         this.detailWrapper = new BScroll(this.$refs.detailWrapper, {
@@ -234,7 +234,7 @@
       padding 18px
       .title
         font-size 14px
-        font-weight 500
+        font-weight 700
         color #07111b
         margin-bottom 6px
       .content
