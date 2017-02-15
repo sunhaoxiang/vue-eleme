@@ -3,15 +3,14 @@
 </template>
 
 <script>
-export default {
-  props: {
-    iconType: Number
-  },
-  created() {
-    this.iconClassMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+  export default {
+    props: {
+      iconType: Number
+    },
+    created() {
+      this.iconClassMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+    }
   }
-}
-
 </script>
 
 <style lang="stylus" scoped>

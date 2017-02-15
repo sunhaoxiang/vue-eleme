@@ -60,172 +60,172 @@
 </template>
 
 <script>
-import cartcontrol from 'components/cartcontrol/cartcontrol'
-import backdrop from 'components/backdrop/backdrop'
-import BScroll from 'better-scroll'
+  import cartcontrol from 'components/cartcontrol/cartcontrol'
+  import backdrop from 'components/backdrop/backdrop'
+  import BScroll from 'better-scroll'
 
-export default {
-  props: {
-    selectFoods: {
-      type: Array,
-      default: []
-    },
-    deliveryPrice: {
-      type: Number,
-      default: 0
-    },
-    minPrice: {
-      type: Number,
-      default: 0
-    }
-  },
-  data() {
-    return {
-      balls: [{
-        show: false
-      }, {
-        show: false
-      }, {
-        show: false
-      }, {
-        show: false
-      }, {
-        show: false
-      }],
-      dropBalls: [],
-      listShow: false
-    }
-  },
-  created() {
-    this.$root.eventHub.$on('cart.add', this.drop)
-  },
-  computed: {
-    showBackdrop() {
-      if (this.listShow && this.totalPrice) {
-        return true
+  export default {
+    props: {
+      selectFoods: {
+        type: Array,
+        default: []
+      },
+      deliveryPrice: {
+        type: Number,
+        default: 0
+      },
+      minPrice: {
+        type: Number,
+        default: 0
       }
-      this.listShow = false
-      return false
     },
-    totalPrice() {
-      let total = 0
-      this.selectFoods.forEach((food) => {
-        if (food.count) {
-          total += food.price * food.count
+    data() {
+      return {
+        balls: [{
+          show: false
+        }, {
+          show: false
+        }, {
+          show: false
+        }, {
+          show: false
+        }, {
+          show: false
+        }],
+        dropBalls: [],
+        listShow: false
+      }
+    },
+    created() {
+      this.$root.eventHub.$on('cart.add', this.drop)
+    },
+    computed: {
+      showBackdrop() {
+        if (this.listShow && this.totalPrice) {
+          return true
         }
-      })
-      return total
-    },
-    totalCount() {
-      let count = 0
-      this.selectFoods.forEach((food) => {
-        count += food.count
-      })
-      return count
-    },
-    leftAmount() {
-      if (this.minPrice - this.totalPrice > 0 && totalPrice) {
-        return true;
-      }
-      return false
-    },
-    payDesc() {
-      let diff = this.minPrice - this.totalPrice
-      if (!this.totalPrice) {
-        return `￥${this.totalPrice}起送`
-      } else if (diff > 0) {
-        return `还差￥${diff}元`
-      } else {
-        return '去结算'
-      }
-    }
-  },
-  methods: {
-    drop(el) {
-      for (let i = 0, l = this.balls.length; i < l; i++) {
-        let ball = this.balls[i]
-        if (!ball.show) {
-          ball.show = true
-          ball.el = el
-          this.dropBalls.push(ball)
-          return
-        }
-      }
-    },
-    setEmpty() {
-      this.selectFoods.forEach((food) => {
-        food.count = 0
-      })
-    },
-    hideBackdrop() {
-      this.listShow = false
-    },
-    _initScroll() {
-      this.foodlistScroll = new BScroll(this.$refs.foodlist, {
-        click: true
-      });
-    },
-    listToggle() {
-      if (!this.selectFoods.length) {
-        return
-      }
-      this.listShow = !this.listShow
-      if (this.listShow) {
-        this.$nextTick(() => {
-          if (!this.foodlistScroll) {
-            this._initScroll()
-          } else {
-            this.foodlistScroll.refresh()
+        this.listShow = false
+        return false
+      },
+      totalPrice() {
+        let total = 0
+        this.selectFoods.forEach((food) => {
+          if (food.count) {
+            total += food.price * food.count
           }
         })
-      }
-    },
-    beforeEnter(el) {
-      let count = this.balls.length
-      while (count--) {
-        let ball = this.balls[count]
-        if (ball.show) {
-          let rect = ball.el.getBoundingClientRect()
-          let x = rect.left - 32;
-          let y = -(window.innerHeight - rect.top - 22)
-          el.style.display = ''
-          el.style.webkitTransform = `translate3d(0,${y}px,0)`
-          el.style.transform = `translate3d(0,${y}px,0)`
-          let inner = el.querySelector('.inner-hook')
-          inner.style.webkitTransform = `translate3d(${x}px,0,0)`
-          inner.style.transform = `translate3d(${x}px,0,0)`
+        return total
+      },
+      totalCount() {
+        let count = 0
+        this.selectFoods.forEach((food) => {
+          count += food.count
+        })
+        return count
+      },
+      leftAmount() {
+        if (this.minPrice - this.totalPrice > 0 && totalPrice) {
+          return true;
+        }
+        return false
+      },
+      payDesc() {
+        let diff = this.minPrice - this.totalPrice
+        if (!this.totalPrice) {
+          return `￥${this.totalPrice}起送`
+        } else if (diff > 0) {
+          return `还差￥${diff}元`
+        } else {
+          return '去结算'
         }
       }
     },
-    enter(el) {
-      el.offsetHeight
-      this.$nextTick(() => {
-        el.style.webkitTransform = 'translate3d(0,0,0)'
-        el.style.transform = 'translate3d(0,0,0)'
-        let inner = el.querySelector('.inner-hook')
-        inner.style.webkitTransform = 'translate3d(0,0,0)'
-        inner.style.transform = 'translate3d(0,0,0)'
-      })
-    },
-    afterEnter(el) {
-      let ball = this.dropBalls.shift()
-      if (ball) {
-        ball.show = false
-        el.style.display = 'none'
+    methods: {
+      drop(el) {
+        for (let i = 0, l = this.balls.length; i < l; i++) {
+          let ball = this.balls[i]
+          if (!ball.show) {
+            ball.show = true
+            ball.el = el
+            this.dropBalls.push(ball)
+            return
+          }
+        }
+      },
+      setEmpty() {
+        this.selectFoods.forEach((food) => {
+          food.count = 0
+        })
+      },
+      hideBackdrop() {
+        this.listShow = false
+      },
+      _initScroll() {
+        this.foodlistScroll = new BScroll(this.$refs.foodlist, {
+          click: true
+        });
+      },
+      listToggle() {
+        if (!this.selectFoods.length) {
+          return
+        }
+        this.listShow = !this.listShow
+        if (this.listShow) {
+          this.$nextTick(() => {
+            if (!this.foodlistScroll) {
+              this._initScroll()
+            } else {
+              this.foodlistScroll.refresh()
+            }
+          })
+        }
+      },
+      beforeEnter(el) {
+        let count = this.balls.length
+        while (count--) {
+          let ball = this.balls[count]
+          if (ball.show) {
+            let rect = ball.el.getBoundingClientRect()
+            let x = rect.left - 32;
+            let y = -(window.innerHeight - rect.top - 22)
+            el.style.display = ''
+            el.style.webkitTransform = `translate3d(0,${y}px,0)`
+            el.style.transform = `translate3d(0,${y}px,0)`
+            let inner = el.querySelector('.inner-hook')
+            inner.style.webkitTransform = `translate3d(${x}px,0,0)`
+            inner.style.transform = `translate3d(${x}px,0,0)`
+          }
+        }
+      },
+      enter(el) {
+        el.offsetHeight
+        this.$nextTick(() => {
+          el.style.webkitTransform = 'translate3d(0,0,0)'
+          el.style.transform = 'translate3d(0,0,0)'
+          let inner = el.querySelector('.inner-hook')
+          inner.style.webkitTransform = 'translate3d(0,0,0)'
+          inner.style.transform = 'translate3d(0,0,0)'
+        })
+      },
+      afterEnter(el) {
+        let ball = this.dropBalls.shift()
+        if (ball) {
+          ball.show = false
+          el.style.display = 'none'
+        }
+      },
+      pay() {
+        if (this.totalPrice < this.minPrice) {
+          return;
+        }
+        window.alert(`支付${this.totalPrice}元`);
       }
     },
-    pay() {
-      if (this.totalPrice < this.minPrice) {
-        return;
-      }
-      window.alert(`支付${this.totalPrice}元`);
+    components: {
+      cartcontrol,
+      backdrop
     }
-  },
-  components: {
-    cartcontrol,
-    backdrop
   }
-}
 </script>
 
 <style lang="stylus" scoped>
