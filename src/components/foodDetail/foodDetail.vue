@@ -2,10 +2,12 @@
   <transition name="move">
     <div class="detailWrapper" ref="detailWrapper" v-show="showDetail">
       <div class="foodDetail">
-        <div class="back" @click="hide()">
-          <i class="icon-arrow_lift"></i>
+        <div class="image-header">
+          <img :src="food.image">
+          <div class="back" @click="hide">
+            <i class="icon-arrow_lift"></i>
+          </div>
         </div>
-        <img :src="food.image" height="425" width="100%">
         <div class="info">
           <div class="title">{{food.name}}</div>
           <div class="desc">
@@ -30,9 +32,7 @@
         </div>
         <div class="divider"></div>
         <div class="evaluation">
-          <div class="title">
-            商品评价
-          </div>
+          <div class="title">商品评价</div>
           <div class="classify">
             <span v-for="(item,index) in classifyArr" class="item" :class="{'active':item.active,'bad':index==2,'badActive':item.active&&index==2}" @click="filterEvel(item)">
               {{item.name}}<span class="count">{{item.count}}</span>
@@ -125,9 +125,13 @@
         this.showDetail = false
       },
       _initScroll() {
-        this.detailWrapper = new BScroll(this.$refs.detailWrapper, {
-          click: true
-        });
+        if (!this.detailWrapper) {
+          this.detailWrapper = new BScroll(this.$refs.detailWrapper, {
+            click: true
+          });
+        } else {
+          this.detailWrapper.refresh()
+        }
       },
       addCart(event) {
         if (!event._constructed) {
@@ -161,14 +165,24 @@
     &.move-enter,&.move-leave-active{
       transform translate3d(100%,0,0)
     }
-  .foodDetail
-    .back
-      position absolute
-      color white
-      top 12px
-      left 6px
-      font-size 20px
-      padding 10px
+    .image-header
+      position: relative
+      width: 100%
+      height: 0
+      padding-top: 100%
+      img
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+      .back
+        position absolute
+        color white
+        top 12px
+        left 6px
+        font-size 20px
+        padding 10px
     .info
       position relative
       box-sizing border-box
@@ -221,7 +235,7 @@
           border-radius 12px
           background rgb(0,160,220)
           &.fade-enter-active,&.fade-leave-active{
-            transition opacity .5s
+            transition opacity .4s
           }
           &.fade-enter,&.fade-leave-active{
             opacity 0
@@ -229,7 +243,7 @@
       .cartcontrol
         position absolute
         right 12px
-        bottom 12px
+        bottom 10px
     .desc
       padding 18px
       .title

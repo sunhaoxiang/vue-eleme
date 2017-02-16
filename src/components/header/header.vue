@@ -24,7 +24,7 @@
               <i class="icon-keyboard_arrow_right"></i>
           </div>
       </div>
-      <div class="bulletin-wrapper" @click="showDetails()">
+      <div class="bulletin-wrapper" @click="showDetails">
         <span class="bulletin-title"></span>
         <span class="bulletin-text">{{seller.bulletin}}</span>
         <i class="icon-keyboard_arrow_right"></i>
@@ -190,16 +190,16 @@
         width 22px
         height 12px
         bg-image('bulletin')
-        background-size 100% 100%
+        background-size 22px 12px
         background-repeat no-repeat
       .bulletin-text
         font-size 10px
-        vertical-align middle
+        vertical-align top
         margin 0 4px
       .icon-keyboard_arrow_right
         position absolute
         font-size 10px
-        right 12px
+        right 8px
         top 8px
     .background
       position absolute
