@@ -128,9 +128,7 @@
         if (!this.detailWrapper) {
           this.detailWrapper = new BScroll(this.$refs.detailWrapper, {
             click: true
-          });
-        } else {
-          this.detailWrapper.refresh()
+          })
         }
       },
       addCart(event) {
