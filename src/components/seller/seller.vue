@@ -113,7 +113,8 @@
         let picLen = this.seller.pics.length
         this.$refs.picList.style.width = PIC_WIDTH * picLen + MARGIN * (picLen - 1) + 'px'
         this.picsScroll = new BScroll(this.$refs.picsWrapper, {
-          scrollX: true
+          scrollX: true,
+          eventPassthrough: 'vertical'
         })
       }
     }
@@ -149,7 +150,7 @@
               display inline-block
               font-size 10px
               color rgb(77,85,93)
-              line-height 18px
+              line-height 16px
             .rate-count
               padding 0 12px 0 8px
           .collect
@@ -191,7 +192,7 @@
               font-weight 200
               .num
                 position relative
-                top 2px
+                top 1px
                 font-size 24px
       .activities
         padding-top 18px
@@ -214,6 +215,8 @@
           padding 16px
           border-bottom 1px solid rgba(7,17,27,0.1)
           font-size 0
+          &:last-child
+            border none
           .iconMap
             width 16px
             height 16px

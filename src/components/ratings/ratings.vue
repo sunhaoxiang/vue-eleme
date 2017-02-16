@@ -48,13 +48,13 @@
                 </div>
                 <div class="star-wrapper">
                   <star :size="24" :score="evel.score"></star>
-                  <span class="deliveryTime">{{evel.deliveryTime}}分钟送达</span>
+                  <span class="deliveryTime" v-if="evel.deliveryTime">{{evel.deliveryTime}}分钟送达</span>
                 </div>
                 <div class="text">
                   {{evel.text}}
                 </div>
                 <div class="recommend">
-                  <span class="icon icon-thumb_up" v-show="evel.recommend.length"></span>
+                  <span class="icon icon-thumb_up" v-if="evel.recommend.length"></span>
                   <span class="dish" v-for="dish in evel.recommend">{{dish}}</span>
                 </div>
               </div>
@@ -167,16 +167,17 @@
           color rgb(255,153,0)
           line-height 28px
         .text
-          padding 6px 0 8px 0
+          padding 6px 0 8px
           font-size 12px
           color rgb(7,17,27)
           line-height 12px
         .contrast
           font-size 10px
-          color rgb(7,17,27)
+          color rgb(147,153,159)
           line-height 10px
           margin-bottom 6px
       .stars
+        flex 1
         padding 18px 24px
         .serviceScore,.foodScore,.deliveryTime
           display flex

@@ -4,7 +4,7 @@
       <ul>
         <li v-for="(item,index) in goods" @click="menuClick(index,$event)" :class="index==menuCurrentIndex?'menu-item-selected':'menu-item'">
           <span class="text">
-            <iconMap v-show="item.type>0" :iconType="item.type"></iconMap>
+            <iconMap v-if="item.type>0" :iconType="item.type"></iconMap>
             {{item.name}}
           </span>
         </li>
@@ -21,14 +21,14 @@
               </div>
               <div class="content">
                 <h2>{{food.name}}</h2>
-                <p class="description" v-show="food.description">{{food.description}}</p>
+                <p class="description" v-if="food.description">{{food.description}}</p>
                 <div class="sell-info">
                   <span class="sellCount">月售{{food.sellCount}}份</span>
                   <span class="rating">好评率{{food.rating}}%</span>
                 </div>
                 <div class="price">
                   <span class="newPrice"><span class="unit">￥</span>{{food.price}}</span>
-                  <span v-show="food.oldPrice" class="oldPrice">￥{{food.oldPrice}}</span>
+                  <span v-if="food.oldPrice" class="oldPrice">￥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
                   <cartcontrol :food="food"></cartcontrol>
