@@ -148,12 +148,12 @@
 
 <style lang="stylus" scoped>
   .ratingsWrapper
-    position: absolute
-    top: 174px
-    bottom: 0
+    position absolute
+    top 174px
+    bottom 0
     left: 0
-    width: 100%
-    overflow: hidden
+    width 100%
+    overflow hidden
   .ratings-content
     .info
       display flex

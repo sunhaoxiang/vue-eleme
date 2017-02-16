@@ -163,7 +163,7 @@
       _initScroll() {
         this.foodlistScroll = new BScroll(this.$refs.foodlist, {
           click: true
-        });
+        })
       },
       listToggle() {
         if (!this.selectFoods.length) {
@@ -218,7 +218,7 @@
         if (this.totalPrice < this.minPrice) {
           return;
         }
-        window.alert(`支付${this.totalPrice}元`);
+        window.alert(`支付${this.totalPrice}元`)
       }
     },
     components: {

@@ -63,10 +63,10 @@
       axios.get('static/data.json').then((res) => {
         this.goods = res.data.goods
         this.$nextTick(() => {
-          this._initScroll(); // 初始化scroll
-          this._calculateHeight(); // 初始化列表高度列表
+          this._initScroll() // 初始化scroll
+          this._calculateHeight() // 初始化列表高度列表
         })
-      });
+      })
     },
     data() {
       return {
@@ -158,7 +158,7 @@
       flex 0 0 80px
       width 80px
       background #f3f5f7
-      margin-top: 2px;
+      margin-top 2px
       .menu-item-selected
         background white
         font-weight 700
@@ -173,11 +173,11 @@
         &:last-child:after
           content none
       .menu-item:after
-          position: absolute
-          content: ''
-          left: 12px
-          width: 56px
-          bottom: 0
+          position absolute
+          content ''
+          left 12px
+          width 56px
+          bottom 0
           border-bottom: 1px solid rgba(7,17,27,0.1)
         .text
           display table-cell
@@ -190,7 +190,7 @@
             vertical-align middle
     .foods-wrapper
       flex 1
-      margin-top: 2px;
+      margin-top: 2px
       .food-list
         h1
           height 26px
@@ -203,8 +203,8 @@
       .food-item
         position relative
         display flex
-        margin: 0 18px;
-        padding: 18px 0;
+        margin 0 18px
+        padding 18px 0
         border-bottom 1px solid rgba(7,17,27,0.1)
         .icon
           flex 0 0 57px

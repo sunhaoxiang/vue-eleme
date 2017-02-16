@@ -1,8 +1,8 @@
 {
-  "name": "sell",
+  "name": "vue-eleme",
   "version": "1.0.0",
-  "description": "sell app",
-  "author": "<zhangr@ethicall.cn>",
+  "description": "A Vue.js project",
+  "author": "孙昊翔 <673686754@qq.com>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",

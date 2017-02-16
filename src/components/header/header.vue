@@ -60,7 +60,7 @@
               </div>
           </div>
           <div class="detail-close">
-            <i class="icon-close" @click="hideDetail()"></i>
+            <i class="icon-close" @click="hideDetail"></i>
           </div>
       </transition>
     </div>
@@ -89,10 +89,10 @@
     },
     methods: {
       showDetails() {
-        this.detailShow = true;
+        this.detailShow = true
       },
       hideDetail() {
-        this.detailShow = false;
+        this.detailShow = false
       }
     }
   }
