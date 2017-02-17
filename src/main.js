@@ -49,5 +49,3 @@ new Vue({
     eventHub: new Vue()
   }
 }).$mount('#app')
-
-router.push('goods')

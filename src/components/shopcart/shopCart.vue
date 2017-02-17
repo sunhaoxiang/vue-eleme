@@ -15,7 +15,7 @@
             ￥{{totalPrice}}
           </div>
           <div class="desc">
-            另需要配送费￥{{deliveryPrice}}元
+            配送费￥{{deliveryPrice}}元
           </div>
         </div>
         <div class="content-right" :class="{'enough':totalPrice>=minPrice}" @click.stop.prevent="pay">
@@ -218,7 +218,11 @@
         if (this.totalPrice < this.minPrice) {
           return;
         }
-        window.alert(`支付${this.totalPrice}元`)
+        if (this.totalPrice < 24) {
+          window.alert(`不满足满减优惠，支付${this.totalPrice + this.deliveryPrice}元`)
+        } else {
+          window.alert(`满足满减优惠，支付${this.totalPrice + this.deliveryPrice - 5}元`)
+        }
       }
     },
     components: {
