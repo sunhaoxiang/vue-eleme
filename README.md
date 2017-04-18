@@ -5,7 +5,7 @@
 vue 2.0 + vue-router + vuex + axios + better-scroll
 
 ## 演示（PC端）
-<a href="http://shx89.com/eleme/index.html#/goods" target=_blank>在线演示戳我</a>
+<a href="http://shx89.com/eleme/index.html#/goods">在线演示戳我</a>
 （请使用Chrome开发者手机演示模式预览）
 
 ## 演示（移动端）
